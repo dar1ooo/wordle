@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { WORDS } from './data/normals.words';
+import { SWISSWORDS } from './data/swiss.words';
 import { Board } from './models/board.component';
 import { Row } from './models/row.component';
 import { Square } from './models/square.component';
@@ -14,23 +15,27 @@ export class AppComponent implements OnInit {
   public secretWord = '';
   public currentGuessRow = 0;
   public currentGuessSquare = 0;
+  public headerText = '';
+  public showDialog = false;
+  public category = '';
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event.code.includes('Key')) {
-      this.KeyPressed(event.key);
+      this.keyPressed(event.key);
     } else if (event.code === 'Backspace') {
-      this.Backspace();
+      this.backspace();
     } else if (event.code === 'Enter') {
-      this.GuessWord();
+      this.guessWord();
     }
   }
 
   public ngOnInit(): void {
-    this.InitBoard();
+    this.initBoard();
   }
 
-  public InitBoard(): void {
+  public initBoard(): void {
+    this.board = new Board();
     for (let i = 0; i < 6; i++) {
       const row = new Row();
       for (let j = 0; j < 5; j++) {
@@ -40,10 +45,28 @@ export class AppComponent implements OnInit {
 
       this.board.rows.push(row);
     }
-    this.secretWord = WORDS[Math.floor(Math.random() * WORDS.length)];
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const code = urlParams.get('category');
+    if (code) {
+      if (code === 'swiss') {
+        this.secretWord =
+          SWISSWORDS[Math.floor(Math.random() * SWISSWORDS.length)];
+        this.headerText = 'WÖRDL | Bünzli version';
+        this.category = 'swiss';
+      } else {
+        this.secretWord = WORDS[Math.floor(Math.random() * WORDS.length)];
+        this.headerText = 'WORDLE | normal';
+        this.category = 'normal';
+      }
+    } else {
+      this.secretWord = WORDS[Math.floor(Math.random() * WORDS.length)];
+      this.headerText = 'WORDLE| normal';
+      this.category = 'normal';
+    }
   }
 
-  private KeyPressed(key: string): void {
+  private keyPressed(key: string): void {
     if (
       this.board.rows[this.currentGuessRow].squares[this.currentGuessSquare]
         .content === ''
@@ -55,7 +78,11 @@ export class AppComponent implements OnInit {
     }
   }
 
-  private Backspace(): void {
+  public keyboardClicked(pressedKey: string): void {
+    this.keyPressed(pressedKey);
+  }
+
+  public backspace(): void {
     if (this.currentGuessSquare != 0) {
       this.board.rows[this.currentGuessRow].squares[
         this.currentGuessSquare - 1
@@ -64,7 +91,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  private GuessWord(): void {
+  public guessWord(): void {
     if (this.board.rows[this.currentGuessRow].squares[4].content != '') {
       const secretWordArray = this.secretWord.split('');
       secretWordArray.forEach((value, index) => {
@@ -81,7 +108,9 @@ export class AppComponent implements OnInit {
           this.board.rows[this.currentGuessRow].squares[
             index
           ].isCorrectPosition = true;
-        } else if (this.secretWord.toUpperCase().includes(enteredLetter.toUpperCase())) {
+        } else if (
+          this.secretWord.toUpperCase().includes(enteredLetter.toUpperCase())
+        ) {
           this.board.rows[this.currentGuessRow].squares[
             index
           ].isInWordButWrongPosition = true;
@@ -93,6 +122,9 @@ export class AppComponent implements OnInit {
       });
       this.currentGuessRow++;
       this.currentGuessSquare = 0;
+    }
+    if (this.currentGuessRow === 6) {
+      this.showDialog = true;
     }
   }
 
@@ -107,5 +139,11 @@ export class AppComponent implements OnInit {
       }
     }
     return '';
+  }
+
+  public closeDialog(): void {
+    this.showDialog = false;
+    this.currentGuessRow = 0;
+    this.initBoard();
   }
 }

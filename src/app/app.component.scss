@@ -1,4 +1,4 @@
-h1 {
+h3 {
   text-align: center;
 }
 
@@ -15,18 +15,20 @@ h1 {
   font-size: 2.5rem;
   font-weight: 700;
   height: 10vh;
+  max-height: 10vw;
   width: 10vh;
+  max-width: 10vw;
   display: flex;
   justify-content: center;
   align-items: center;
   text-transform: uppercase;
-  &.correct-position{
+  &.correct-position {
     background-color: green;
   }
-  &.isinword{
+  &.isinword {
     background-color: yellow;
   }
-  &.notinword{
+  &.notinword {
     background-color: grey;
   }
 }
@@ -65,4 +67,12 @@ h1 {
   margin: 0 2px;
   cursor: pointer;
   text-transform: uppercase;
+}
+
+.category-button {
+  background-color: #0a7fbf;
+  padding: 9px;
+  border-radius: 10px;
+  margin: 15px;
+  color: white;
 }
