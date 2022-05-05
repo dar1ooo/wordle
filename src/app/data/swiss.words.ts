@@ -1,5 +1,5 @@
 export const SWISSWORDS = [
-  'jasse',
+  'szene',
   'hasse',
   'kasse',
   'cheib',
@@ -26,4 +26,9 @@ export const SWISSWORDS = [
   'model',
   'bosge',
   'gnifu',
+  'chabis',
+  'chäs',
+  'stabil',
+  'hurensohn',
+  'wallah',
 ];

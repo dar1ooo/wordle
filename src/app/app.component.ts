@@ -36,15 +36,6 @@ export class AppComponent implements OnInit {
 
   public initBoard(): void {
     this.board = new Board();
-    for (let i = 0; i < 6; i++) {
-      const row = new Row();
-      for (let j = 0; j < 5; j++) {
-        const square = new Square();
-        row.squares.push(square);
-      }
-
-      this.board.rows.push(row);
-    }
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const code = urlParams.get('category');
@@ -63,6 +54,16 @@ export class AppComponent implements OnInit {
       this.secretWord = WORDS[Math.floor(Math.random() * WORDS.length)];
       this.headerText = 'WORDLE| normal';
       this.category = 'normal';
+    }
+
+    for (let i = 0; i < 6; i++) {
+      const row = new Row();
+      for (let j = 0; j < this.secretWord.length; j++) {
+        const square = new Square();
+        row.squares.push(square);
+      }
+
+      this.board.rows.push(row);
     }
   }
 
@@ -92,7 +93,7 @@ export class AppComponent implements OnInit {
   }
 
   public guessWord(): void {
-    if (this.board.rows[this.currentGuessRow].squares[4].content != '') {
+    if (this.board.rows[this.currentGuessRow].squares[this.secretWord.length - 1].content != '') {
       const secretWordArray = this.secretWord.split('');
       secretWordArray.forEach((value, index) => {
         const enteredLetter =
