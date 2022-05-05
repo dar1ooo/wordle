@@ -21,7 +21,12 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    if (event.code.includes('Key')) {
+    if (
+      event.code.includes('Key') ||
+      event.key === 'ü' ||
+      event.key === 'ä' ||
+      event.key === 'ö'
+    ) {
       this.keyPressed(event.key);
     } else if (event.code === 'Backspace') {
       this.backspace();
@@ -93,7 +98,10 @@ export class AppComponent implements OnInit {
   }
 
   public guessWord(): void {
-    if (this.board.rows[this.currentGuessRow].squares[this.secretWord.length - 1].content != '') {
+    if (
+      this.board.rows[this.currentGuessRow].squares[this.secretWord.length - 1]
+        .content != ''
+    ) {
       const secretWordArray = this.secretWord.split('');
       secretWordArray.forEach((value, index) => {
         const enteredLetter =
