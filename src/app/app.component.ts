@@ -73,14 +73,16 @@ export class AppComponent implements OnInit {
   }
 
   private keyPressed(key: string): void {
-    if (
-      this.board.rows[this.currentGuessRow].squares[this.currentGuessSquare]
-        .content === ''
-    ) {
-      this.board.rows[this.currentGuessRow].squares[
-        this.currentGuessSquare
-      ].content = key;
-      this.currentGuessSquare++;
+    if (this.currentGuessSquare < this.secretWord.length) {
+      if (
+        this.board.rows[this.currentGuessRow].squares[this.currentGuessSquare]
+          .content === ''
+      ) {
+        this.board.rows[this.currentGuessRow].squares[
+          this.currentGuessSquare
+        ].content = key;
+        this.currentGuessSquare++;
+      }
     }
   }
 
