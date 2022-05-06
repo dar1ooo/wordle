@@ -9,6 +9,12 @@ export class DialogComponent {
   @Input()
   public secretWord = '';
 
+  @Input()
+  public wordGuessCorrect = false;
+
+  @Input()
+  public category = '';
+
   @Output()
   public closed: EventEmitter<any> = new EventEmitter();
 

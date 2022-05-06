@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   public currentGuessSquare = 0;
   public headerText = '';
   public showDialog = false;
+  public wordGuessCorrect = false;
   public category = '';
 
   @HostListener('window:keyup', ['$event'])
@@ -104,16 +105,17 @@ export class AppComponent implements OnInit {
       this.board.rows[this.currentGuessRow].squares[this.secretWord.length - 1]
         .content != ''
     ) {
+      let enteredWord = '';
+      this.board.rows[this.currentGuessRow].squares.forEach((value) => {
+        enteredWord += value.content.toUpperCase();
+      });
       const secretWordArray = this.secretWord.split('');
       secretWordArray.forEach((value, index) => {
         const enteredLetter =
           this.board.rows[this.currentGuessRow].squares[
             index
           ].content.toUpperCase();
-        let enteredWord = '';
-        this.board.rows[this.currentGuessRow].squares.forEach((value) => {
-          enteredWord += value.content.toUpperCase();
-        });
+
         value = value.toUpperCase();
         if (enteredLetter === value) {
           this.board.rows[this.currentGuessRow].squares[
@@ -131,11 +133,17 @@ export class AppComponent implements OnInit {
         }
         this.board.rows[this.currentGuessRow].squares[index].isGuessed = true;
       });
+      if (
+        this.currentGuessRow === 5 ||
+        enteredWord.toUpperCase() === this.secretWord.toUpperCase()
+      ) {
+        if (enteredWord.toUpperCase() === this.secretWord.toUpperCase()) {
+          this.wordGuessCorrect = true;
+        }
+        this.showDialog = true;
+      }
       this.currentGuessRow++;
       this.currentGuessSquare = 0;
-    }
-    if (this.currentGuessRow === 6) {
-      this.showDialog = true;
     }
   }
 
@@ -155,6 +163,8 @@ export class AppComponent implements OnInit {
   public closeDialog(): void {
     this.showDialog = false;
     this.currentGuessRow = 0;
+    this.currentGuessSquare = 0;
+    this.wordGuessCorrect = false;
     this.initBoard();
   }
 }

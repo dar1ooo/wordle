@@ -127,6 +127,8 @@
   <app-dialog
     *ngIf="showDialog"
     [secretWord]="secretWord"
+    [wordGuessCorrect]="wordGuessCorrect"
+    [category]="category"
     (closed)="this.closeDialog()"
   ></app-dialog>
 </div>
