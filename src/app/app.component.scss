@@ -1,5 +1,7 @@
 h3 {
   text-align: center;
+  margin: 10px;
+  font-weight: bold;
 }
 
 .game-board {
@@ -9,10 +11,10 @@ h3 {
 }
 
 .letter-box {
-  border: 2px solid gray;
-  border-radius: 3px;
+  border: 2px solid black;
+  border-radius: 8px;
   margin: 2px;
-  font-size: 2.5rem;
+  font-size: 2.7rem;
   font-weight: 700;
   height: 10vh;
   max-height: 10vw;
@@ -23,13 +25,22 @@ h3 {
   align-items: center;
   text-transform: uppercase;
   &.correct-position {
-    background-color: green;
+    background-color: #008801;
+    transform: rotateX(360deg);
+    transition: transform 1.5s;
+    transform-style: preserve-3d;
   }
   &.isinword {
-    background-color: yellow;
+    background-color: #ffcf16;
+    transform: rotateX(360deg);
+    transition: transform 1.5s;
+    transform-style: preserve-3d;
   }
   &.notinword {
-    background-color: grey;
+    background-color: rgb(104, 104, 104);
+    transform: rotateX(360deg);
+    transition: transform 1.5s;
+    transform-style: preserve-3d;
   }
 }
 
@@ -70,9 +81,13 @@ h3 {
 }
 
 .category-button {
-  background-color: #0a7fbf;
+  background-color: #3ea3da;
   padding: 9px;
-  border-radius: 10px;
+  border-radius: 3px;
   margin: 15px;
   color: white;
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+  }
 }

@@ -69,9 +69,10 @@
     </div>
   </div>
 </div>
-<div *ngIf="showDialog">
-  <div>
-    <h1>The correct word was {{ secretWord }}</h1>
-    <button (click)="closeDialog()">Close</button>
-  </div>
-</div>
+<div *ngIf="showDialog"></div>
+
+<app-dialog
+  *ngIf="showDialog"
+  [secretWord]="secretWord"
+  (closed)="this.closeDialog()"
+></app-dialog>
