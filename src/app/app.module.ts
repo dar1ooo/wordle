@@ -6,15 +6,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DialogComponent
-  ],
-  imports: [
-    BrowserModule,
-    NgbModule
-  ],
+  declarations: [AppComponent, DialogComponent],
+  imports: [BrowserModule, NgbModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
