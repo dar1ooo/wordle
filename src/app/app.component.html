@@ -1,78 +1,137 @@
-<div *ngIf="!showDialog">
-  <h3>{{ headerText }}</h3>
-  <a class="category-button" href="?category=swiss">SWISS</a>
-  <a class="category-button" href="?category=normal">NORMAL</a>
-  <div class="game-board">
-    <div class="letter-row" *ngFor="let row of board.rows">
-      <div *ngFor="let square of row.squares">
-        <div class="letter-box" [ngClass]="checkForCorrectness(square)">
-          {{ square.content }}
+<div class="isNotMobile">
+  <div *ngIf="!showDialog">
+    <h3>{{ headerText }}</h3>
+    <a class="category-button" href="?category=swiss">SWISS</a>
+    <a class="category-button" href="?category=normal">NORMAL</a>
+    <div class="game-board">
+      <div class="letter-row" *ngFor="let row of board.rows">
+        <div *ngFor="let square of row.squares">
+          <div class="letter-box" [ngClass]="checkForCorrectness(square)">
+            {{ square.content }}
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div id="keyboard-cont">
-    <div class="center">
-      <button class="keyboard-button" (click)="keyboardClicked('q')">q</button>
-      <button class="keyboard-button" (click)="keyboardClicked('w')">w</button>
-      <button class="keyboard-button" (click)="keyboardClicked('e')">e</button>
-      <button class="keyboard-button" (click)="keyboardClicked('r')">r</button>
-      <button class="keyboard-button" (click)="keyboardClicked('t')">t</button>
-      <button class="keyboard-button" (click)="keyboardClicked('z')">z</button>
-      <button class="keyboard-button" (click)="keyboardClicked('u')">u</button>
-      <button class="keyboard-button" (click)="keyboardClicked('i')">i</button>
-      <button class="keyboard-button" (click)="keyboardClicked('o')">o</button>
-      <button class="keyboard-button" (click)="keyboardClicked('p')">p</button>
-      <button
-        class="keyboard-button"
-        (click)="keyboardClicked('ü')"
-        *ngIf="category === 'swiss'"
-      >
-        ü
-      </button>
+    <div id="keyboard-cont">
+      <div class="center">
+        <button class="keyboard-button" (click)="keyboardClicked('q')">
+          q
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('w')">
+          w
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('e')">
+          e
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('r')">
+          r
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('t')">
+          t
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('z')">
+          z
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('u')">
+          u
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('i')">
+          i
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('o')">
+          o
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('p')">
+          p
+        </button>
+        <button
+          class="keyboard-button"
+          (click)="keyboardClicked('ü')"
+          *ngIf="category === 'swiss'"
+        >
+          ü
+        </button>
+      </div>
+      <div class="center">
+        <button class="keyboard-button" (click)="keyboardClicked('a')">
+          a
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('s')">
+          s
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('d')">
+          d
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('f')">
+          f
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('g')">
+          g
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('h')">
+          h
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('j')">
+          j
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('k')">
+          k
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('l')">
+          l
+        </button>
+        <button
+          class="keyboard-button"
+          (click)="keyboardClicked('ö')"
+          *ngIf="category === 'swiss'"
+        >
+          ö</button
+        ><button
+          class="keyboard-button"
+          (click)="keyboardClicked('ä')"
+          *ngIf="category === 'swiss'"
+        >
+          ä
+        </button>
+      </div>
+      <div class="center">
+        <button class="keyboard-button" (click)="backspace()">Del</button>
+        <button class="keyboard-button" (click)="keyboardClicked('y')">
+          y
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('x')">
+          x
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('c')">
+          c
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('v')">
+          v
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('b')">
+          b
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('n')">
+          n
+        </button>
+        <button class="keyboard-button" (click)="keyboardClicked('m')">
+          m
+        </button>
+        <button class="keyboard-button" (click)="guessWord()">Enter</button>
+      </div>
     </div>
-    <div class="center">
-      <button class="keyboard-button" (click)="keyboardClicked('a')">a</button>
-      <button class="keyboard-button" (click)="keyboardClicked('s')">s</button>
-      <button class="keyboard-button" (click)="keyboardClicked('d')">d</button>
-      <button class="keyboard-button" (click)="keyboardClicked('f')">f</button>
-      <button class="keyboard-button" (click)="keyboardClicked('g')">g</button>
-      <button class="keyboard-button" (click)="keyboardClicked('h')">h</button>
-      <button class="keyboard-button" (click)="keyboardClicked('j')">j</button>
-      <button class="keyboard-button" (click)="keyboardClicked('k')">k</button>
-      <button class="keyboard-button" (click)="keyboardClicked('l')">l</button>
-      <button
-        class="keyboard-button"
-        (click)="keyboardClicked('ö')"
-        *ngIf="category === 'swiss'"
-      >
-        ö</button
-      ><button
-        class="keyboard-button"
-        (click)="keyboardClicked('ä')"
-        *ngIf="category === 'swiss'"
-      >
-        ä
-      </button>
-    </div>
-    <div class="center">
-      <button class="keyboard-button" (click)="backspace()">Del</button>
-      <button class="keyboard-button" (click)="keyboardClicked('y')">y</button>
-      <button class="keyboard-button" (click)="keyboardClicked('x')">x</button>
-      <button class="keyboard-button" (click)="keyboardClicked('c')">c</button>
-      <button class="keyboard-button" (click)="keyboardClicked('v')">v</button>
-      <button class="keyboard-button" (click)="keyboardClicked('b')">b</button>
-      <button class="keyboard-button" (click)="keyboardClicked('n')">n</button>
-      <button class="keyboard-button" (click)="keyboardClicked('m')">m</button>
-      <button class="keyboard-button" (click)="guessWord()">Enter</button>
-    </div>
+  </div>
+  <div *ngIf="showDialog"></div>
+
+  <app-dialog
+    *ngIf="showDialog"
+    [secretWord]="secretWord"
+    (closed)="this.closeDialog()"
+  ></app-dialog>
+</div>
+<div class="isMobile">
+  <div class="mobile-dialog">
+    Sorry, this app is not meant for Mobile browsers
   </div>
 </div>
-<div *ngIf="showDialog"></div>
-
-<app-dialog
-  *ngIf="showDialog"
-  [secretWord]="secretWord"
-  (closed)="this.closeDialog()"
-></app-dialog>

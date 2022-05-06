@@ -2,7 +2,11 @@ h3 {
   text-align: center;
   margin: 20px 0px 0px 0px;
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 5vh;
+}
+
+.isMobile {
+  display: none;
 }
 
 .game-board {
@@ -58,11 +62,11 @@ h3 {
 }
 
 .keyboard-button {
-  font-size: 1.5rem;
-  height: fit-content;
+  height: 7vh;
+  padding: 20px;
   width: fit-content;
-  font-weight: 700;
-  padding: 0.7rem;
+  max-width: fit-content;
+  font-weight: bold;
   margin: 2px 2px;
   cursor: pointer;
   text-transform: uppercase;
@@ -80,7 +84,23 @@ h3 {
   }
 }
 
-.center{
+.center {
   display: flex;
   justify-content: center;
+}
+
+.mobile-dialog {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 784px) {
+  .isNotMobile {
+    display: none;
+  }
+
+  .isMobile {
+    display: block;
+  }
 }
